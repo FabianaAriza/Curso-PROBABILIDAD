@@ -1,0 +1,619 @@
+---
+title: "Acrividad"
+author: "Fabiana Ariza Monsalve"
+date: "2025-05-10"
+output: html_document
+---
+
+---
+title: "**Problemas resueltos sobre probabilidad clásica**"
+author: "**Fabiana Ariza Monsalve**"
+date: "Año 2025"
+email: "fariza@utb.edu.co"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    df_print: paged
+---
+
+# **🍎 Problema 1: Obtener grado en la universidad**
+
+Suponga que el espacio muestral es la población de adultos en una pequeña ciudad que cumplen con los requisitos para obtener un grado en la universidad. Se clasifican de acuerdo con su sexo y situación laboral. La información se presenta en la tabla siguiente:
+
+|               | Empleado | Desempleado |
+|---------------|----------|-------------|
+| Hombre        | 460      | 40          |
+| Mujer         | 140      | 260         |
+
+Si uno de los individuos se seleccionara al azar para que realice un viaje a través del país para promover las ventajas de establecer industrias nuevas en la ciudad, ¿cuál es la probabilidad de que el elegido sea un **hombre sabiendo que tiene empleo**?
+
+## **Solución ✅**
+
+Estamos buscando la probabilidad condicional:
+
+$$
+P(\text{Hombre} \mid \text{Empleado}) = \frac{P(\text{Hombre y Empleado})}{P(\text{Empleado})}
+$$
+
+
+$$
+\text{Total empleados} = 460 + 140 = 600
+$$
+
+
+$$
+\text{Hombres empleados} = 460
+$$
+
+Sustituimos en la fórmula 
+
+$$
+P(\text{Hombre} \mid \text{Empleado}) = \frac{460}{600} = \frac{23}{30} \approx 0.7667
+$$
+
+
+
+# **🧠 Problema 2: test de inteligencia**
+
+A un grupo de 1000 sujetos se les pasó un test de inteligencia y se midió su rendimiento académico (RA). Los resultados se resumen en la siguiente tabla: Se definen los sucesos: A: Ser superior en inteligencia; B: Ser apto en rendimiento.  ¿Cuál es la probabilidad de que ó no es  apto en rendimiento o es inferior en inteligencia?
+
+|                | Inteligencia Inferior | Inteligencia Superior |
+|----------------|----------------------|-----------------------|
+| Apto           | 200                  | 300                   |
+| No Apto        | 400                  | 100                   |
+
+## **Solución**
+
+### Paso 1: Definir los eventos
+- $A$ es el evento "ser superior en inteligencia".
+- $B$ es el evento "ser apto en rendimiento".
+- Lo que buscamos es la probabilidad de que ocurra el evento \( B^C \cup A \), es decir, "no ser apto en rendimiento" o "ser inferior en inteligencia".
+
+La probabilidad de la unión de dos eventos es:
+
+$$
+P(B^C \cup A) = P(B^C) + P(A) - P(B^C \cap A)
+$$
+
+### Paso 2: Calcular probabilidades
+
+- $P(B^C)$: Es la probabilidad de no ser apto en rendimiento. Esto es la cantidad de sujetos no aptos (400 + 100 = 500) dividida por el total de sujetos (1000).
+
+$$
+P(B^C) = \frac{500}{1000} = 0.5
+$$
+
+- $P(A)$: Es la probabilidad de ser superior en inteligencia. Esto es la cantidad de sujetos superiores en inteligencia (300 + 100 = 400) dividida por el total de sujetos (1000).
+
+$$
+P(A) = \frac{400}{1000} = 0.4
+$$
+
+- $P(B^C \cap A)$: Es la probabilidad de ser tanto no apto como inferior en inteligencia. Esto es la cantidad de sujetos no aptos y con inteligencia inferior (400) dividida por el total de sujetos (1000).
+
+$$
+P(B^C \cap A) = \frac{400}{1000} = 0.4
+$$
+
+### Paso 3: Sustituir en la fórmula
+
+$$
+P(B^C \cup A) = 0.5 + 0.4 - 0.4 = 0.5
+$$
+
+### Respuesta
+
+La probabilidad de que un individuo no sea apto en rendimiento o sea inferior en inteligencia es:
+
+```{r}
+probabilidad <- 0.5
+sprintf("La probabilidad es %.4f (o %.2f%%)", probabilidad, probabilidad * 100)
+
+```
+
+
+
+
+
+
+# **🐛 Problema 3: Insecticida de larvas**
+
+Se aplica un insecticida a tres larvas y, al cabo de 24 horas, se observa si están muertas o vivas. Queremos encontrar la probabilidad de que exactamente dos larvas estén muertas y una viva.
+
+## **Solución ✅**
+
+### Paso 1: Número de formas posibles
+
+Dado que estamos buscando la probabilidad de que exactamente dos larvas estén muertas y una viva, primero calculamos el número de formas en que esto puede ocurrir. Como estamos trabajando con tres larvas, el número de formas de elegir dos larvas muertas de tres es un **coeficiente binomial**, que se calcula de la siguiente manera:
+
+$$
+\binom{3}{2} = 3
+$$
+
+Esto significa que hay tres formas de seleccionar dos larvas muertas y una viva.
+
+### Paso 2: Probabilidad de un caso específico
+
+Luego, calculamos la probabilidad de que en una forma específica, dos larvas estén muertas y una viva. Suponiendo que la probabilidad de que una larva esté muerta o viva es de $ \frac{1}{2} $, la probabilidad de que dos larvas estén muertas y una viva es:
+
+$$
+P(2 \text{ muertas y 1 viva}) = \left( \frac{1}{2} \right)^2 \cdot \left( \frac{1}{2} \right)^1 = \frac{1}{8}
+$$
+
+### Paso 3: Multiplicamos por el número de combinaciones
+
+Como hay 3 formas posibles de obtener dos larvas muertas y una viva, multiplicamos la probabilidad de un caso específico por el número de combinaciones:
+
+$$
+P(2 \text{ muertas y 1 viva}) = 3 \cdot \frac{1}{8} = \frac{3}{8}
+$$
+
+
+
+
+# **📘 Problema 4: Materias de un curso**
+
+Para un estudiante que cursa las materias de estadística y Precálculo, se estima que la probabilidad de aprobar Precálculo es igual al 40%. Además, la probabilidad de aprobar por lo menos un curso es igual al 60%, y tiene un 10% de probabilidad de aprobar ambos cursos. ¿Cuál es la probabilidad de que pase la materia de Estadística?
+
+## **Solución ✅**
+
+Denotemos los eventos de la siguiente manera:
+
+- $A$: Aprobar Precálculo
+- $B$: Aprobar Estadística
+
+De acuerdo con la información proporcionada, tenemos:
+
+- $P(A) = 0.40$, que es la probabilidad de aprobar Precálculo.
+- $P(A \cup B) = 0.60$, que es la probabilidad de aprobar por lo menos un curso.
+- $P(A \cap B) = 0.10$, que es la probabilidad de aprobar ambos cursos.
+
+Queremos encontrar $P(B)$, que es la probabilidad de aprobar Estadística.
+
+### Fórmula de la probabilidad de la unión de dos eventos
+
+Sabemos que la probabilidad de la unión de dos eventos $A$ y $B$ se calcula con la siguiente fórmula:
+
+$$
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+$$
+
+Sustituyendo los valores conocidos:
+
+$$
+0.60 = 0.40 + P(B) - 0.10
+$$
+
+
+Despejamos $P(B)$:
+
+$$
+0.60 = 0.40 + P(B) - 0.10
+$$
+$$
+0.60 = 0.30 + P(B)
+$$
+$$
+P(B) = 0.60 - 0.30 = 0.30
+$$
+
+### Resultado
+
+La probabilidad de que el estudiante pase la materia de Estadística es:
+
+$$
+P(B) = 0.30
+$$
+
+Es decir, la probabilidad de aprobar Estadística es del **30%**.
+
+
+
+
+# **⚡Problema 5: Caja de fusibles**
+
+Supóngase que se tiene una caja de fusibles que contiene 20 piezas, de las cuales 5 están defectuosas. Si se seleccionan 2 al azar y se sacan de la caja en una sucesión sin reemplazo del primero, ¿cuál es la probabilidad de que ambos fusibles resulten defectuosos?
+
+## **Solución ✅**
+
+Este problema es un ejemplo de probabilidad sin reemplazo, en el que queremos encontrar la probabilidad de que ambos fusibles seleccionados sean defectuosos.
+
+Denotemos los eventos de la siguiente manera:
+
+- Total de fusibles: 20
+- Fusibles defectuosos: 5
+- Fusibles no defectuosos: 15
+
+La probabilidad de que el primer fusible seleccionado sea defectuoso es:
+
+$$
+P(\text{primer fusible defectuoso}) = \frac{5}{20} = \frac{1}{4}
+$$
+
+Una vez que se selecciona un fusible defectuoso, el total de fusibles disminuye a 19 y el número de fusibles defectuosos disminuye a 4. La probabilidad de que el segundo fusible seleccionado sea defectuoso, dado que el primero lo fue, es:
+
+$$
+P(\text{segundo fusible defectuoso}) = \frac{4}{19}
+$$
+
+### Probabilidad total
+
+La probabilidad de que ambos fusibles seleccionados sean defectuosos es el producto de estas dos probabilidades:
+
+$$
+P(\text{ambos defectuosos}) = P(\text{primer fusible defectuoso}) \times P(\text{segundo fusible defectuoso}) = \frac{1}{4} \times \frac{4}{19} = \frac{4}{76} = \frac{1}{19}
+$$
+
+### Resultado
+
+La probabilidad de que ambos fusibles resulten defectuosos es:
+
+$$
+\frac{1}{19}
+$$
+
+
+# **🍫 Problema 6: Caja de chocolatinas**
+
+Un niño guarda tres cajas con chocolatinas. En la primera tiene dos chocolatinas negras y una blanca, en la segunda dos negras y dos blancas, y en la tercera dos blancas y una negra. En un despiste suyo, su hermana pequeña le ha cogido una chocolatina blanca. ¿Cuál es la probabilidad de que la haya cogido de la primera caja? (respuesta hasta 3 decimales)
+
+## **Solución ✅**
+
+Vamos a resolver este problema utilizando el **Teorema de Bayes**, que nos permite calcular la probabilidad de un evento condicionado a otro.
+
+Denotemos los eventos de la siguiente manera:
+
+- $ A_1 $: La chocolatina fue tomada de la primera caja.
+- $ A_2 $: La chocolatina fue tomada de la segunda caja.
+- $ A_3 $: La chocolatina fue tomada de la tercera caja.
+- $ B $: La chocolatina tomada es blanca.
+
+Nos piden calcular la probabilidad de que la chocolatina haya sido tomada de la primera caja, dado que es blanca. Es decir, queremos encontrar $ P(A_1 \mid B) $.
+
+### Paso 1: Probabilidades a priori
+
+Las probabilidades a priori de que la chocolatina haya sido tomada de cada caja son iguales, ya que no se nos da ninguna otra información:
+
+$$
+P(A_1) = P(A_2) = P(A_3) = \frac{1}{3}
+$$
+
+### Paso 2: Probabilidades condicionadas
+
+Las probabilidades de que una chocolatina seleccionada al azar sea blanca, dada que ha sido tomada de cada caja, son:
+
+- De la **primera caja**: Hay 3 chocolatinas en total (2 negras y 1 blanca), por lo que la probabilidad de sacar una chocolatina blanca es:
+
+$$
+P(B \mid A_1) = \frac{1}{3}
+$$
+
+- De la **segunda caja**: Hay 4 chocolatinas en total (2 negras y 2 blancas), por lo que la probabilidad de sacar una chocolatina blanca es:
+
+$$
+P(B \mid A_2) = \frac{2}{4} = \frac{1}{2}
+$$
+
+- De la **tercera caja**: Hay 3 chocolatinas en total (1 negra y 2 blancas), por lo que la probabilidad de sacar una chocolatina blanca es:
+
+$$
+P(B \mid A_3) = \frac{2}{3}
+$$
+
+### Paso 3: Probabilidad total de que la chocolatina sea blanca
+
+Para calcular la probabilidad total de que la chocolatina seleccionada sea blanca, usamos la fórmula de probabilidad total:
+
+$$
+P(B) = P(A_1) P(B \mid A_1) + P(A_2) P(B \mid A_2) + P(A_3) P(B \mid A_3)
+$$
+
+Sustituyendo los valores:
+
+$$
+P(B) = \frac{1}{3} \cdot \frac{1}{3} + \frac{1}{3} \cdot \frac{1}{2} + \frac{1}{3} \cdot \frac{2}{3}
+$$
+
+Calculamos:
+
+$$
+P(B) = \frac{1}{9} + \frac{1}{6} + \frac{2}{9} = \frac{1 + 2}{9} + \frac{3}{18} = \frac{3}{9} + \frac{3}{18} = \frac{6}{18} + \frac{3}{18} = \frac{9}{18} = \frac{1}{2}
+$$
+
+### Paso 4: Aplicando el Teorema de Bayes
+
+Finalmente, aplicamos el **Teorema de Bayes** para calcular $ P(A_1 \mid B) $, la probabilidad de que la chocolatina haya sido tomada de la primera caja dado que es blanca:
+
+$$
+P(A_1 \mid B) = \frac{P(A_1) P(B \mid A_1)}{P(B)}
+$$
+
+Sustituyendo los valores:
+
+$$
+P(A_1 \mid B) = \frac{\frac{1}{3} \cdot \frac{1}{3}}{\frac{1}{2}} = \frac{\frac{1}{9}}{\frac{1}{2}} = \frac{1}{9} \cdot 2 = \frac{2}{9}
+$$
+
+### Resultado
+
+La probabilidad de que la chocolatina haya sido tomada de la primera caja, dado que es blanca, es:
+
+$$
+P(A_1 \mid B) = \frac{2}{9} \approx 0.222
+$$
+
+Por lo tanto, la probabilidad es aproximadamente **0.222**.
+
+
+
+# **🪙 Problema 7: monedas**
+
+Supongamos que tenemos una moneda A que cae en cara con probabilidad $s$ y una moneda B que cae en cara con probabilidad $t$. Si cada moneda se tira de manera alternada, empezando con la moneda A. ¿Cuál es la probabilidad de que la primera cara se obtenga con la moneda A?
+
+## **Solución ✅**
+
+En este caso, la probabilidad de que la primera cara se obtenga con la moneda A es simplemente la probabilidad de que la moneda A caiga en cara en el primer lanzamiento. Por lo tanto, la probabilidad es:
+
+$$
+P(\text{primera cara con A}) = s
+$$
+
+### Respuesta
+
+La probabilidad de que la primera cara se obtenga con la moneda A es **$s$**.
+
+
+
+# **📑 Problema 8: Agencia de seguros**
+
+Un agente de seguros vende pólizas a cinco personas de la misma edad y que disfrutan de buena salud. Según las tablas actuales, la probabilidad de que una persona en estas condiciones viva 30 años o más es 60%. ¿Cuál es la probabilidad de que, transcurridos 30 años, todas vivan?
+
+## **Solución ✅**
+
+La probabilidad de que una persona viva 30 años o más es $0.60$. Como los eventos son independientes, la probabilidad de que todas las cinco personas vivan 30 años o más es:
+
+$$
+P(\text{todas viven 30 años o más}) = 0.60^5
+$$
+
+Calculamos el valor:
+
+$$
+P(\text{todas viven 30 años o más}) = 0.60^5 = 0.07776
+$$
+
+### Respuesta
+
+La probabilidad de que todas las cinco personas vivan 30 años o más es **0.0778** (aproximadamente).
+
+
+
+
+# **🧠 Problema 9: Probabilidad de sucesos**
+
+Sean 2 sucesos A y B de los que se sabe que la probabilidad de B es el doble que la de A; que la probabilidad de su unión es doble que la de su intersección; y que la probabilidad  de su intersección es de 0,2. ¿Qué suceso es más probable que ocurra sabiendo que ya ha ocurrido el otro?
+
+## **Solución ✅**
+Sean 2 sucesos \( A \) y \( B \) de los que se sabe que:
+
+- La probabilidad de \( B \) es el doble que la de \( A \), es decir:
+
+$$
+P(B) = 2 \cdot P(A)
+$$
+
+- La probabilidad de su unión es el doble que la de su intersección, es decir:
+
+$$
+P(A \cup B) = 2 \cdot P(A \cap B)
+$$
+
+- La probabilidad de su intersección es de 0.2, es decir:
+
+$$
+P(A \cap B) = 0.2
+$$
+
+Se pide determinar qué suceso es más probable que ocurra sabiendo que ya ha ocurrido el otro.
+### Paso 1: Utilizamos la fórmula de la probabilidad de la unión
+
+Sabemos que:
+
+$$
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+$$
+
+Sustituyendo las condiciones que tenemos:
+
+$$
+P(A \cup B) = P(A) + 2P(A) - 0.2
+$$
+
+Además, sabemos que \( P(A \cup B) = 2 \cdot P(A \cap B) = 2 \cdot 0.2 = 0.4 \), por lo que sustituimos este valor:
+
+$$
+0.4 = 3P(A) - 0.2
+$$
+
+Sumamos 0.2 a ambos lados:
+
+$$
+0.4 + 0.2 = 3P(A)
+$$
+
+$$
+0.6 = 3P(A)
+$$
+
+Finalmente, despejamos \( P(A) \):
+
+$$
+P(A) = \frac{0.6}{3} = 0.2
+$$
+
+### Paso 2: Calculamos \( P(B) \)
+
+Sabemos que \( P(B) = 2 \cdot P(A) \), entonces:
+
+$$
+P(B) = 2 \cdot 0.2 = 0.4
+$$
+
+### Paso 3: Probabilidades condicionadas
+
+Ahora, necesitamos calcular las probabilidades condicionadas \( P(A|B) \) y \( P(B|A) \).
+
+#### Probabilidad de \( A \) dado \( B \) (\( P(A|B) \)):
+
+La fórmula de la probabilidad condicionada es:
+
+$$
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+$$
+
+Sustituyendo los valores:
+
+$$
+P(A|B) = \frac{0.2}{0.4} = 0.5
+$$
+
+#### Probabilidad de \( B \) dado \( A \) (\( P(B|A) \)):
+
+De manera similar:
+
+$$
+P(B|A) = \frac{P(A \cap B)}{P(A)}
+$$
+
+Sustituyendo los valores:
+
+$$
+P(B|A) = \frac{0.2}{0.2} = 1
+$$
+
+### Respuesta
+
+- La probabilidad de \( A \) dado \( B \) es \( P(A|B) = 0.5 \).
+- La probabilidad de \( B \) dado \( A \) es \( P(B|A) = 1 \).
+
+Por lo tanto, el suceso más probable que ocurra sabiendo que ya ha ocurrido el otro es \( B \), ya que \( P(B|A) = 1 \).
+
+
+
+# **⚪🔴⚫Pr oema 10: Extracción de bolas en una urna**
+
+Sea la urna U (3B, 3N, 4R). Extraemos tres bolas, una a continuación de la otra. La primera es negra, la segunda no se mira y la tercera es blanca. Hallar la probabilidad de que la segunda sea roja.
+
+## **Solución ✅**
+Se tiene una urna \( U \) con bolas de los siguientes colores:
+
+- 3 bolas negras (B),
+- 3 bolas rojas (R),
+- 4 bolas blancas (N).
+
+Se extraen tres bolas, una a continuación de la otra. Sabemos que:
+
+- La primera bola extraída es negra.
+- La tercera bola extraída es blanca.
+- Se debe hallar la probabilidad de que la segunda bola extraída sea roja.
+
+### Paso 1: Condiciones iniciales
+
+- En total, la urna tiene \( 3 + 3 + 4 = 10 \) bolas.
+- Tras la primera extracción (una bola negra), las bolas restantes en la urna son: \( 2 \) bolas negras, \( 3 \) bolas rojas y \( 4 \) bolas blancas.
+- Después de la segunda extracción (no vista) y la tercera extracción (una bola blanca), las bolas restantes en la urna son: \( 2 \) bolas negras, \( 3 \) bolas rojas y \( 3 \) bolas blancas.
+
+### Paso 2: Cálculo de la probabilidad
+
+La probabilidad de que la segunda bola extraída sea roja depende de las bolas restantes en la urna. Sabemos que quedan \( 8 \) bolas en total (2 negras, 3 rojas y 3 blancas), y de estas, \( 3 \) son rojas. Por lo tanto, la probabilidad de que la segunda bola sea roja es:
+
+$$
+P(\text{Segunda bola roja}) = \frac{\text{Número de bolas rojas restantes}}{\text{Número total de bolas restantes}} = \frac{3}{8}
+$$
+
+### Paso 3: Resultado final
+
+Calculamos la probabilidad:
+
+$$
+P(\text{Segunda bola roja}) = \frac{3}{8} = 0.375
+$$
+
+
+
+# **✍️📄 Problema 11: Concurso de redacción**
+
+En un colegio hay dos grupos de 35 alumnos de quinto curso y dos grupos de 30 alumnos de sexto curso. El 50 % de los alumnos de quinto no tienen faltas de ortografía, porcentaje que sube a 70% en los alumnos de sexto. En un concurso de redacción entre alumnos de quinto y sexto se elige una redacción al azar. Si tiene faltas de ortografía, ¿qué probabilidad hay de que sea de un alumno de quinto?
+
+## **Solución ✅**
+En un colegio hay:
+
+- Dos grupos de **35 alumnos** de **quinto curso**:  
+  \( 2 \times 35 = 70 \) alumnos de quinto.
+
+- Dos grupos de **30 alumnos** de **sexto curso**:  
+  \( 2 \times 30 = 60 \) alumnos de sexto.
+
+- El **50%** de los alumnos de quinto **no** tienen faltas de ortografía.  
+  Por lo tanto, el **50% sí** tienen faltas:  
+  $$ P(F|Q) = 0.5 $$
+
+- El **70%** de los alumnos de sexto **no** tienen faltas de ortografía.  
+  Por lo tanto, el **30% sí** tienen faltas:  
+  $$ P(F|S) = 0.3 $$
+
+Queremos hallar la probabilidad de que, **dada una redacción con faltas**, esta sea de un alumno de **quinto**:
+
+$$
+P(Q|F) = ?
+$$
+
+Aplicamos el **teorema de Bayes**:
+
+$$
+P(Q|F) = \frac{P(F|Q) \cdot P(Q)}{P(F)}
+$$
+
+Donde:
+
+- \( P(Q) = \frac{70}{130} \)
+- \( P(S) = \frac{60}{130} \)
+- \( P(F|Q) = 0.5 \)
+- \( P(F|S) = 0.3 \)
+
+Calculamos \( P(F) \):
+
+$$
+P(F) = P(F|Q) \cdot P(Q) + P(F|S) \cdot P(S) \\
+P(F) = (0.5) \cdot \left(\frac{70}{130}\right) + (0.3) \cdot \left(\frac{60}{130}\right) = \frac{35 + 18}{130} = \frac{53}{130}
+$$
+
+Ahora sustituimos en Bayes:
+
+$$
+P(Q|F) = \frac{(0.5) \cdot \left(\frac{70}{130}\right)}{\frac{53}{130}} = \frac{35}{53} \approx 0.6604
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

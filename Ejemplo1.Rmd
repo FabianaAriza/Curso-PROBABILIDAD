@@ -1,0 +1,149 @@
+---
+title: "Probabilidad"
+author: "Fabiana Ariza Monsalve"
+date: "2025-05-10"
+output: html_document
+---
+
+# **Ejemplo 1: La cola al burro**
+Un jugador debe colocarle la cola al burro donde ésta tiene forma circular y se encuentra dentro de un canasto cuadrangular, ¿Cual es la probabilidad de que el jugador acierte?
+
+```{r}
+# Parámetros
+s <- 20
+r <- 3
+
+# Visualización
+plot(c(0, s), c(0, s), type = "n", xlab = "x", ylab = "y",
+     main = "Probabilidad Geométrica: Punto en un Área")
+rect(0, 0, s, s) # Cuadrado
+symbols(s / 2, s / 2, circles = r, inches = FALSE, add = TRUE, fg = "red") # Círculo
+text(s / 2, s * 0.9, paste("Área Cuadrado =", s^2), cex = 0.8)
+text(s / 2, s * 0.1, paste("Área Círculo =", round(pi * r^2, 2)), col = "red", cex = 0.8)
+
+cat(round((pi * r^2/s^2), 2))
+
+```
+
+
+# **2. Problema de probabilidad: Encuentro de dos amigos**
+
+Vamos a resolver este problema paso a paso usando notación Markdown
+
+---
+
+### **Problema**
+
+Dos amigos acuerdan encontrarse en un lugar entre las **12:00 PM y la 1:00 PM**. Cada uno llega **en un momento aleatorio**, independientemente del otro. El que llega primero **espera 15 minutos**, y si el otro no ha llegado, **se va**. ¿Cuál es la probabilidad de que se encuentren?
+
+---
+
+### **Solución**
+
+Sea:
+
+* $X$: el tiempo (en minutos después de las 12:00 PM) en que llega el primer amigo.
+* $Y$: el tiempo en que llega el segundo amigo.
+
+Ambos llegan en un momento aleatorio entre $0$ y $60$ minutos. Esto significa que $(X, Y)$ se distribuye **uniformemente** en el cuadrado de lado $60$ unidades:
+
+$$
+0 \leq X \leq 60,\quad 0 \leq Y \leq 60
+$$
+
+Se encontrarán si **la diferencia entre sus tiempos de llegada es de 15 minutos o menos**, es decir:
+
+$$
+|X - Y| \leq 15
+$$
+
+Esto define una región en el cuadrado de lado \$60\$, entre las rectas:
+
+* $Y = X + 15$
+* $Y = X - 15$
+
+Queremos hallar el área de esta región y dividirla entre el área total del cuadrado ($60 \times 60 = 3600$).
+
+#### **Área de la región favorable**
+
+La región entre $|X - Y| \leq 15$ es el cuadrado completo **menos** dos triángulos rectángulos en las esquinas donde la diferencia de tiempo es mayor a 15 minutos.
+
+Cada uno de esos triángulos tiene catetos de longitud \$45\$ (porque \$60 - 15 = 45\$), por lo tanto:
+
+* Área de un triángulo: $dfrac{1}{2} \cdot 45 \cdot 45 = 1012.5$
+* Área total desfavorable: $2 \cdot 1012.5 = 2025$
+
+Entonces, la **área favorable** es:
+
+$$
+3600 - 2025 = 1575
+$$
+
+#### **Probabilidad de encuentro**
+
+$$
+P = \frac{1575}{3600} = \frac{7}{16}
+$$
+
+---
+
+### **Respuesta final**
+
+La probabilidad de que los dos amigos se encuentren es:
+
+$$
+\boxed{\frac{7}{16}}
+$$
+
+
+### **Representación gráfica**
+
+```{r}
+# Cargar librería
+library(ggplot2)
+
+# Crear un data frame con todos los puntos del cuadrado
+x <- seq(0, 60, length.out = 300)
+df <- data.frame(
+  x = rep(x, each = 300),
+  y = rep(x, 300)
+)
+
+# Filtrar los puntos donde |x - y| <= 15
+df$inside <- abs(df$x - df$y) <= 15
+
+# Graficar con ggplot2
+ggplot(df, aes(x, y)) +
+  geom_tile(aes(fill = inside), alpha = 0.7) +
+  scale_fill_manual(values = c("FALSE" = "white", "TRUE" = "lightblue"),
+                    name = "|X - Y| ≤ 15",
+                    labels = c("No se encuentran", "Se encuentran")) +
+  geom_abline(intercept = 15, slope = 1, linetype = "dashed", color = "green") +
+  geom_abline(intercept = -15, slope = 1, linetype = "dashed", color = "red") +
+  coord_fixed() +
+  labs(title = "Región de encuentro entre dos amigos",
+       x = "Hora de llegada del amigo A (min)",
+       y = "Hora de llegada del amigo B (min)") +
+  theme_minimal()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
